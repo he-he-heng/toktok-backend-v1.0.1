@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"errors"
+	"toktok-backend-v1.0.1/pkg/errors"
 
 	"gorm.io/gorm"
 	"toktok-backend-v1.0.1/internal/core/domain"

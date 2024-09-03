@@ -22,7 +22,11 @@ func NewDatabase(config *config.Config) (*Database, error) {
 		config.Database.Port,
 		config.Database.Database)
 
-	gormDB, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	gormConfig := &gorm.Config{
+		TranslateError: true,
+	}
+
+	gormDB, err := gorm.Open(mysql.Open(dsn), gormConfig)
 	if err != nil {
 		return nil, err
 	}
