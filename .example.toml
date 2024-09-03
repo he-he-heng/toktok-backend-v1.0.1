@@ -1,0 +1,9 @@
+[database]
+user = "root"
+password = "Qwe123!"
+host = "localhost"
+port = "3306"
+database = "toktok"
+maxIdleConns = 10
+maxOpenConns = 100
+ConnMaxLifeTime = 30
