@@ -10,11 +10,11 @@ import (
 	"toktok-backend-v1.0.1/internal/config"
 )
 
-type database struct {
+type Database struct {
 	*gorm.DB
 }
 
-func NewDatabase(config *config.Config) (*database, error) {
+func NewDatabase(config *config.Config) (*Database, error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		config.Database.User,
 		config.Database.Password,
@@ -42,7 +42,7 @@ func NewDatabase(config *config.Config) (*database, error) {
 	sqlDB.SetConnMaxLifetime(time.Duration(rand.Int31n(int32(config.Database.ConnMaxLifeTime))) * time.Millisecond)
 
 	// new instance
-	database := database{
+	database := Database{
 		DB: gormDB,
 	}
 

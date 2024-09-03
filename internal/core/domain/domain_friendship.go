@@ -20,7 +20,7 @@ type Friendship struct {
 	// user < -- 1 -- 친구추가 -- N --> frindship
 	FriendID uint `gorm:"not null"`
 
-	Status FriendshipStatusType `gorm:"type:friendship_status_type;default:PENDING;not null"`
+	Status FriendshipStatusType `gorm:"default:PENDING;not null"`
 
 	// friendship <-- 1 -- -- N --> message
 	Messages []Message

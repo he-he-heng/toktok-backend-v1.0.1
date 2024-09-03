@@ -15,4 +15,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	err = database.AutoMigrate()
+	if err != nil {
+		panic(err)
+	}
 }

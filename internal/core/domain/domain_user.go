@@ -10,27 +10,13 @@ const (
 	Admin   UserRoleType = "ADMIN"
 )
 
-type UserSexType string
-
-const (
-	Male   UserSexType = "MALE"
-	Female UserSexType = "FEMALE"
-)
-
 type User struct {
 	gorm.Model
 
 	LoginID  string
 	Password string       `gorm:"type:varchar(255);not null"`
 	Email    *string      `gorm:"type:varchar(255)"`
-	Role     UserRoleType `gorm:"type:user_role_type;default:GUEST;not null"`
-
-	Sex       UserSexType
-	Birthday  string
-	Mbti      *string
-	Picture   string
-	Nickanme  string
-	Introduce *string
+	Role     UserRoleType `gorm:"default:GUEST;not null"`
 
 	// user < -- 1 -- 친구추가 -- N --> frindship
 	UserFriendships []Friendship `gorm:"foreignKey:UserID"`
@@ -40,4 +26,7 @@ type User struct {
 
 	// user < -- 1 -- -- N -- > message
 	Messages []Message
+
+	// user < -- 1 -- -- 1 -- > avatar
+	Avatar Avatar
 }
