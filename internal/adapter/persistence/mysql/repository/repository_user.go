@@ -29,7 +29,7 @@ func (r *UserRepository) CreateUser(ctx context.Context, user *domain.User) (*do
 	return user, err
 }
 
-func (r *UserRepository) GetUser(ctx context.Context, id int) (*domain.User, error) {
+func (r *UserRepository) GetUser(ctx context.Context, id uint) (*domain.User, error) {
 	queryUser := domain.User{}
 	err := r.db.WithContext(ctx).First(&queryUser, id).Error
 	if err != nil {
@@ -48,7 +48,7 @@ func (r *UserRepository) UpdateUser(ctx context.Context, user *domain.User) (*do
 	return user, nil
 }
 
-func (r *UserRepository) DeleteUser(ctx context.Context, id int) error {
+func (r *UserRepository) DeleteUser(ctx context.Context, id uint) error {
 	err := r.db.WithContext(ctx).Delete(&domain.User{}, id).Error
 	if err != nil {
 		return utils.Wrap(err)

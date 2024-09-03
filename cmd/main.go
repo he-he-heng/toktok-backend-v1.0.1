@@ -2,7 +2,9 @@ package main
 
 import (
 	"toktok-backend-v1.0.1/internal/adapter/persistence/mysql"
+	"toktok-backend-v1.0.1/internal/adapter/persistence/mysql/repository"
 	"toktok-backend-v1.0.1/internal/config"
+	"toktok-backend-v1.0.1/internal/core/service"
 )
 
 func main() {
@@ -20,4 +22,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	userRepository := repository.NewUserRepository(database)
+	userService := service.NewUserService(userRepository)
+
 }
