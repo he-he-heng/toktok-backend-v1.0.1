@@ -15,4 +15,17 @@ func (c CreateUserRequest) ToUser() *domain.User {
 	}
 }
 
-// GET /v1/api/users/{id}
+type UpdateUserRequest struct {
+	LoginID         string  `json:"login_id" validate:"omitempty,gte=4,lte=18"`
+	Password        string  `json:"password" validate:"omitempty,gte=6,lte=32"`
+	Email           *string `json:"email" validate:"omitempty,email"`
+	ConfirmPassword string  `json:"confirm_password" validate:"omitempty,gte=6,lte=32"`
+}
+
+func (u UpdateUserRequest) ToUser() *domain.User {
+	return &domain.User{
+		LoginID:  u.LoginID,
+		Password: u.Password,
+		Email:    u.Email,
+	}
+}

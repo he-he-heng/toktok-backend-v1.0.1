@@ -41,6 +41,8 @@ func NewRouter(config *config.Config, handlerSet HandlerSet, middlewareSet Middl
 			{
 				users.Post("/", handlerSet.UserHandler.CreateUser)
 				users.Get("/:id", middlewareSet.GuardMiddleware.FilterValidAccess, handlerSet.UserHandler.GetUsers)
+				users.Put("/:id", middlewareSet.GuardMiddleware.FilterValidAccess, handlerSet.UserHandler.UpdateUser)
+				users.Delete("/:id", middlewareSet.GuardMiddleware.FilterValidAccess, handlerSet.UserHandler.DeleteUser)
 			}
 		}
 	}
