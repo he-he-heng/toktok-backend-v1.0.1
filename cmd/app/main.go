@@ -1,8 +1,12 @@
 package main
 
 import (
+	"log"
+
 	"toktok-backend-v1.0.1/internal/adapter/persistence/mysql"
 	"toktok-backend-v1.0.1/internal/adapter/persistence/mysql/repository"
+	"toktok-backend-v1.0.1/internal/adapter/presentation/handler"
+	"toktok-backend-v1.0.1/internal/adapter/presentation/router"
 	"toktok-backend-v1.0.1/internal/config"
 	"toktok-backend-v1.0.1/internal/core/service"
 )
@@ -25,5 +29,10 @@ func main() {
 
 	userRepository := repository.NewUserRepository(database)
 	userService := service.NewUserService(userRepository)
+	userHandler := handler.NewUserHandler(userService)
+
+	router := router.NewRouter(config, router.HandlerSet{UserHandler: userHandler})
+
+	log.Fatal(router.Listen())
 
 }

@@ -18,7 +18,7 @@ func newVerifier() *v {
 	return &verifier
 }
 
-func (v v) Verify(s any) error {
+func (v v) Validate(s any) error {
 	return v.instance.Struct(s)
 }
 

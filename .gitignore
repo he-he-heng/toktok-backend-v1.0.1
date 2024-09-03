@@ -24,3 +24,6 @@ go.work.sum
 # env file
 .env
 .toml
+
+# air.toml
+tmp_app/

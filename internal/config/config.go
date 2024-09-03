@@ -17,6 +17,10 @@ type Config struct {
 		MaxOpenConns    int
 		ConnMaxLifeTime int
 	}
+
+	Http struct {
+		Port string
+	}
 }
 
 func New(path string) (*Config, error) {
