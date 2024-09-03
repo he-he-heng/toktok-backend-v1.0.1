@@ -32,6 +32,7 @@ func NewRouter(config *config.Config, handlerSet HandlerSet) *Router {
 			users := api.Group("/users")
 			{
 				users.Post("/", handlerSet.UserHandler.CreateUser)
+				users.Get("/:id", handlerSet.UserHandler.GetUsers)
 			}
 		}
 	}
