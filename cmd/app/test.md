@@ -1,0 +1,1 @@
+# main에 v1/api/auth/validation 의존성 주입하셈

@@ -12,7 +12,7 @@ type Router struct {
 	app        *fiber.App
 }
 
-func NewRouter(config *config.Config, handlerSet HandlerSet) *Router {
+func NewRouter(config *config.Config, handlerSet HandlerSet, middlwareSet MiddlewareSet) *Router {
 
 	// Create Configuration  for fiber
 	fiberConfig := fiber.Config{
@@ -30,10 +30,13 @@ func NewRouter(config *config.Config, handlerSet HandlerSet) *Router {
 		api := v1.Group("/api")
 		{
 
+			// api.Use("/users")
+
 			auth := api.Group("/auth")
 			{
 				auth.Post("/login", handlerSet.AuthHandler.Login)
 				auth.Post("/refresh", handlerSet.AuthHandler.Refresh)
+				auth.Post("/validation", middlwareSet.GuardMiddleware.TokenValidate, handlerSet.AuthHandler.Validation)
 			}
 
 			users := api.Group("/users")

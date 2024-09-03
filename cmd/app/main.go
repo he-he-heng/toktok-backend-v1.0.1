@@ -7,6 +7,7 @@ import (
 	"toktok-backend-v1.0.1/internal/adapter/persistence/mysql"
 	"toktok-backend-v1.0.1/internal/adapter/persistence/mysql/repository"
 	"toktok-backend-v1.0.1/internal/adapter/presentation/handler"
+	"toktok-backend-v1.0.1/internal/adapter/presentation/middleware"
 	"toktok-backend-v1.0.1/internal/adapter/presentation/router"
 	"toktok-backend-v1.0.1/internal/config"
 	"toktok-backend-v1.0.1/internal/core/service"
@@ -40,10 +41,18 @@ func main() {
 	authService := service.NewAuthService(userRepository, tokenService)
 	authHandler := handler.NewAuthHandler(authService)
 
-	router := router.NewRouter(config, router.HandlerSet{
+	handlerSet := router.HandlerSet{
 		UserHandler: userHandler,
 		AuthHandler: authHandler,
-	})
+	}
+
+	guardMiddleware := middleware.NewGuardMiddlware(tokenService)
+
+	middlewareSet := router.MiddlewareSet{
+		GuardMiddleware: guardMiddleware,
+	}
+
+	router := router.NewRouter(config, handlerSet, middlewareSet)
 
 	log.Fatal(router.Listen())
 
