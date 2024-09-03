@@ -39,6 +39,17 @@ func (r *UserRepository) GetUser(ctx context.Context, id uint) (*domain.User, er
 	return &queryUser, err
 }
 
+func (r *UserRepository) GetUserByLoginID(ctx context.Context, loginID string) (*domain.User, error) {
+	queriedUser := domain.User{}
+
+	err := r.db.WithContext(ctx).Where("login_id = ?", loginID).Find(&queriedUser).Error
+	if err != nil {
+		return nil, utils.Wrap(err)
+	}
+
+	return &queriedUser, nil
+}
+
 func (r *UserRepository) UpdateUser(ctx context.Context, user *domain.User) (*domain.User, error) {
 	err := r.db.WithContext(ctx).Save(user).Error
 	if err != nil {

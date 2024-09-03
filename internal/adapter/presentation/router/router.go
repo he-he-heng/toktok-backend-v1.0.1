@@ -29,6 +29,13 @@ func NewRouter(config *config.Config, handlerSet HandlerSet) *Router {
 	{
 		api := v1.Group("/api")
 		{
+
+			auth := api.Group("/auth")
+			{
+				auth.Post("/login", handlerSet.AuthHandler.Login)
+				auth.Post("/refresh", handlerSet.AuthHandler.Refresh)
+			}
+
 			users := api.Group("/users")
 			{
 				users.Post("/", handlerSet.UserHandler.CreateUser)

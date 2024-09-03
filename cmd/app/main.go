@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"toktok-backend-v1.0.1/internal/adapter/authentication/token"
 	"toktok-backend-v1.0.1/internal/adapter/persistence/mysql"
 	"toktok-backend-v1.0.1/internal/adapter/persistence/mysql/repository"
 	"toktok-backend-v1.0.1/internal/adapter/presentation/handler"
@@ -27,11 +28,22 @@ func main() {
 		panic(err)
 	}
 
+	tokenService, err := token.NewTokenService(config)
+	if err != nil {
+		panic(err)
+	}
+
 	userRepository := repository.NewUserRepository(database)
 	userService := service.NewUserService(userRepository)
 	userHandler := handler.NewUserHandler(userService)
 
-	router := router.NewRouter(config, router.HandlerSet{UserHandler: userHandler})
+	authService := service.NewAuthService(userRepository, tokenService)
+	authHandler := handler.NewAuthHandler(authService)
+
+	router := router.NewRouter(config, router.HandlerSet{
+		UserHandler: userHandler,
+		AuthHandler: authHandler,
+	})
 
 	log.Fatal(router.Listen())
 

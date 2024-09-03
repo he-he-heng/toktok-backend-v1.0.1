@@ -7,3 +7,8 @@ database = "toktok"
 maxIdleConns = 10
 maxOpenConns = 100
 ConnMaxLifeTime = 30
+
+[token]
+key = "aea5817a64c41e903d65cdb9cd70a0ba54dc54c09b7c25896de1f00d5d4b7cb6dda01bfce7b83da8a76e85a3e60bd419c036f34dead2235b16e0493873c2ecf9"
+accessDuration = "3h"
+refreshDuration = "2160h" # 90 day

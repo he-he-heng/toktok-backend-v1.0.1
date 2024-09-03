@@ -18,6 +18,12 @@ type Config struct {
 		ConnMaxLifeTime int
 	}
 
+	Token struct {
+		Key             string
+		AccessDuration  string
+		RefreshDuration string
+	}
+
 	Http struct {
 		Port string
 	}

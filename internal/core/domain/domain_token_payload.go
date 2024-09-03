@@ -1,10 +1,10 @@
 package domain
 
-type TokenType string
+type TokenPayloadTokenType string
 
 const (
-	AccessToken  TokenType = "access-token"
-	RefreshToken TokenType = "refresh-token"
+	AccessToken  TokenPayloadTokenType = "access-token"
+	RefreshToken TokenPayloadTokenType = "refresh-token"
 )
 
 type TokenPayload struct {
@@ -18,7 +18,7 @@ type TokenPayload struct {
 	// 토큰이 발급된 시간 (unix timestamp로 표현)
 	Ita int64
 
-	TokenType TokenType
+	TokenType TokenPayloadTokenType
 
 	Role UserRoleType
 }
